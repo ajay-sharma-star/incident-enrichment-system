@@ -1,0 +1,23 @@
+{
+  "name": "Incident Enrichment Dev Container",
+  "image": "mcr.microsoft.com/devcontainers/dotnet:1-8.0",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+    "ghcr.io/devcontainers/features/azure-cli:1": {}
+  },
+  "postCreateCommand": "npm i -g azure-functions-core-tools@4 --unsafe-perm true && dotnet --info && func --version",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-azurefunctions",
+        "ms-dotnettools.csharp",
+        "ms-dotnettools.csdevkit",
+        "ms-vscode.azure-account"
+      ]
+    }
+  },
+  "forwardPorts": [7071],
+  "remoteUser": "vscode"
+}
