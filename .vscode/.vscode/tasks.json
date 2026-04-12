@@ -1,0 +1,39 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "restore",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["restore", "src/IncidentEnrichment.FunctionApp/IncidentEnrichment.FunctionApp.csproj"]
+    },
+    {
+      "label": "build",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["build", "src/IncidentEnrichment.FunctionApp/IncidentEnrichment.FunctionApp.csproj", "--configuration", "Debug"],
+      "dependsOn": "restore"
+    },
+    {
+      "label": "publish (functions)",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "publish",
+        "src/IncidentEnrichment.FunctionApp/IncidentEnrichment.FunctionApp.csproj",
+        "--configuration",
+        "Release",
+        "--output",
+        "src/IncidentEnrichment.FunctionApp/bin/Release/net8.0/publish"
+      ],
+      "dependsOn": "restore"
+    },
+    {
+      "label": "func start",
+      "type": "shell",
+      "command": "cd src/IncidentEnrichment.FunctionApp && func start",
+      "dependsOn": "restore",
+      "isBackground": true
+    }
+  ]
+}
